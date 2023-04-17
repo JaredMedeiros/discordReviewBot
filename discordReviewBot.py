@@ -76,7 +76,7 @@ async def request(ctx, language):
     
     # Send a message to the corresponding language channel
     language_channel = client.get_channel(channel_id)
-    message = await language_channel.send(f"{user} has requested a code review. Please go to the code review channel.")
+    message = await language_channel.send(f"{user} has requested a code review. Please go to the code review channel to help out your fellow developer. When you've finished, make sure to react with a ✅ and send your feedback in the message thread")
     
     # Add a reaction to the message so that users can mark it as "done"
     await message.add_reaction("✅")
@@ -84,6 +84,7 @@ async def request(ctx, language):
 @client.event
 async def on_reaction_add(reaction, user):
     # Check if the reaction was added to a message in a language channel
+    print("This has been triggered")
     if reaction.message.channel.id not in LANGUAGE_CHANNELS.values():
         return
     
@@ -100,10 +101,15 @@ async def on_reaction_add(reaction, user):
 
     CODE_REVIEW_COUNTS[user_id] = CODE_REVIEW_COUNTS.get(user_id, 0) + 1
     
+
+    #send a thank you message to the user who reacted
+    await CODE_REVIEW_CHANNEL_ID.send(f"Thanks for completing a code review, {user.mention}! Keep up the great work!")
+
     # Check if the user has completed a milestone
     for milestone_count, milestone_name in MILESTONES:
         if CODE_REVIEW_COUNTS.get(user_id, 0) == milestone_count:
-            await reaction.message.channel.send(f"Congratulations, {user.name}! You've completed {milestone_count} code reviews and earned the {milestone_name} badge.")
+            await reaction.message.channel.send(f":star_struck: :star_struck: :star_struck: Congratulations, {user.name}! You've completed {milestone_count} code reviews and earned the {milestone_name} badge. :partying_face: :partying_face: :partying_face: ")
+
 
 try:
     client.run(TOKEN)
