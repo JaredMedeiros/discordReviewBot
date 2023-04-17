@@ -76,7 +76,7 @@ async def request(ctx, language):
     
     # Send a message to the corresponding language channel
     language_channel = client.get_channel(channel_id)
-    language_channel.send(f"{user} has requested a code review. Please go to the code review channel to help out your fellow developer. When you've finished, make sure to react with a ✅ and send your feedback in the message thread")
+    await language_channel.send(f"{user} has requested a code review. Please go to the code review channel to help out your fellow developer. When you've finished, make sure to react with a ✅ and send your feedback in the message thread")
     
     # Wait for the user's message in the code review channel
     def check(m):
