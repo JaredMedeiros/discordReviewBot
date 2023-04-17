@@ -2,17 +2,27 @@ import discord
 from discord.ext import commands
 import requests
 import re
+import traceback
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
 
 
 intents = discord.Intents().all()
 client = commands.Bot(command_prefix="!", intents=intents)
-TOKEN = "MTA5NzI5MjgzMDQyNDE4Mjc4NA.GS0J52.-E4qPoVi5L_lxnHaks511AAE_tu0wDESqDF6Pg"
+TOKEN = "MTA5NzI5MjgzMDQyNDE4Mjc4NA.GxLEL1.xsvWj_SmmhzSc7omlIwtaxDVqqpjE3pbnhSszo"
 client = commands.Bot(command_prefix="!", intents=intents)
 
 
 @client.event
 async def on_ready():
     print("Bot is ready.")
+
+@client.event
+async def on_error(event, *args, **kwargs):
+    error = traceback.format_exc()
+    print(f"An error occurred in {event}: {error}")    
 
 
 
@@ -94,3 +104,8 @@ async def on_reaction_add(reaction, user):
     for milestone_count, milestone_name in MILESTONES:
         if CODE_REVIEW_COUNTS.get(user_id, 0) == milestone_count:
             await reaction.message.channel.send(f"Congratulations, {user.name}! You've completed {milestone_count} code reviews and earned the {milestone_name} badge.")
+
+try:
+    client.run(TOKEN)
+except Exception as e:
+    print(f"An error occurred while running the client: {e}")
