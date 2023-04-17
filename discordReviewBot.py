@@ -69,7 +69,7 @@ async def request(ctx, language):
         await ctx.send(f"Your code review request has been submitted. Thank you, {ctx.author.mention}!")
         
         # Get the user's nickname or username if they don't have a nickname
-        user = ctx.author.nick or ctx.author.name
+        # user = ctx.author.nick or ctx.author.name
 
         # Get the channel ID for the specified language
         channel_id = LANGUAGE_CHANNELS[language.lower()]
