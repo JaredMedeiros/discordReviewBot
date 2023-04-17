@@ -4,7 +4,8 @@ import requests
 import re
 
 
-client = commands.Bot(command_prefix="!")
+intents = discord.Intents().all()
+client = commands.Bot(command_prefix="!", intents=intents)
 TOKEN = "MTA5NzI5MjgzMDQyNDE4Mjc4NA.GS0J52.-E4qPoVi5L_lxnHaks511AAE_tu0wDESqDF6Pg"
 client = commands.Bot(command_prefix="!")
 permissions = discord.Permissions(permissions=3136)  # send messages, read message history, add reactions
