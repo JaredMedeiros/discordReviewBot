@@ -59,6 +59,10 @@ def extract_github_url(message):
 
 @client.command()
 async def request(ctx, language):
+
+    if ctx.author.bot:
+        return
+    
     # Check if the command was sent in the "code review" channel
     if ctx.channel.id != CODE_REVIEW_CHANNEL_ID:
         return
@@ -80,7 +84,7 @@ async def request(ctx, language):
     
     # Wait for the user's message in the code review channel
     def check(m):
-        return m.author == ctx.author and m.channel.id == CODE_REVIEW_CHANNEL_ID
+        return m.author == ctx.author and m.channel.id == CODE_REVIEW_CHANNEL_ID and m.content.startswith(client.command_prefix)
     
     user_message = await client.wait_for('message', check=check)
     
