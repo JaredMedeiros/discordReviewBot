@@ -76,16 +76,25 @@ async def request(ctx, language):
     
     # Send a message to the corresponding language channel
     language_channel = client.get_channel(channel_id)
-    message = await language_channel.send(f"{user} has requested a code review. Please go to the code review channel to help out your fellow developer. When you've finished, make sure to react with a ✅ and send your feedback in the message thread")
+    language_channel.send(f"{user} has requested a code review. Please go to the code review channel to help out your fellow developer. When you've finished, make sure to react with a ✅ and send your feedback in the message thread")
     
-    # Add a reaction to the message so that users can mark it as "done"
-    await message.add_reaction("✅")
+    # Wait for the user's message in the code review channel
+    def check(m):
+        return m.author == ctx.author and m.channel.id == CODE_REVIEW_CHANNEL_ID
+    
+    user_message = await client.wait_for('message', check=check)
+    
+    # Add a reaction to the user's message so that users can mark it as "done"
+    await user_message.add_reaction("✅")
+    
+    # Send a message to the user to confirm their request
+    await ctx.send("Your code review request has been submitted. Thank you!")
 
 @client.event
 async def on_reaction_add(reaction, user):
-    # Check if the reaction was added to a message in a language channel
+    # Check if the reaction was added to a message in the code review channel
     print("This has been triggered")
-    if reaction.message.channel.id not in LANGUAGE_CHANNELS.values():
+    if reaction.message.channel.id == CODE_REVIEW_CHANNEL_ID:
         return
     
     # Check if the reaction is the "done" emoji
