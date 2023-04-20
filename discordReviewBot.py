@@ -9,21 +9,21 @@ intents = discord.Intents().all()
 TOKEN = "MTA5NzI5MjgzMDQyNDE4Mjc4NA.GxLEL1.xsvWj_SmmhzSc7omlIwtaxDVqqpjE3pbnhSszo"
 client = commands.Bot(command_prefix="!", intents=intents)
 
-
-@client.event
-async def on_ready():
-    print("Bot is ready.")
-
-@client.event
-async def on_error(event, *args, **kwargs):
-    error = traceback.format_exc()
-    print(f"An error occurred in {event}: {error}")    
-
 # The ID of the server
 SERVER_ID = 1097291717037797450
 
 # The ID of the Code review channel
 CODE_REVIEW_CHANNEL_ID = 1097292075445264504
+
+@client.event
+async def on_ready():
+    print("Bot is ready.")
+    await client.get_channel(CODE_REVIEW_CHANNEL_ID).send("Hi, :wave: I'm your friendly code review bot,Unitum!:handshake: :robot: :heart_hands: \n\n\nI am here to help make sure that you can get your code reviewed, and to facilitate sharing helpful feedback between your fellow Junior Devs.:woman_technologist: :technologist:\n\n\n Stuck on a project? Finished a new application? Taking a crack at a brand new coding language? Simply use the !request command followed by the language of your code, as well as a link to your github repository to request a review. <request!> <language> <githublink>\n\n\n I'll send a message to the language channel on your behalf, letting folks know to head over here to review your code.\n\n\nDevs, let's help eachother out when we can:pray:. Review a fellow Junior's code to allow them, and yourself, to learn and grow, as you earn badges at different milestones.:medal: The more code you review, the the more badges you will recieve!:rocket: \n\n\nHappy coding!:smile: :dizzy: ")
+
+@client.event
+async def on_error(event, *args, **kwargs):
+    error = traceback.format_exc()
+    print(f"An error occurred in {event}: {error}")    
 
 # A dictionary that maps language names to the IDs of their corresponding channels
 LANGUAGE_CHANNELS = {
