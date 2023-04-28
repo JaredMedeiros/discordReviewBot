@@ -5,15 +5,15 @@ Unitum is a Discord bot designed to foster collaboration and learning among juni
 
 ## Features
 
-*- Code Review Requests:* Users can request code reviews by using the !request command in the designated "code-review" channel. They need to provide the programming language and a link to their GitHub repository.
+**- Code Review Requests:** Users can request code reviews by using the !request command in the designated "code-review" channel. They need to provide the programming language and a link to their GitHub repository.
 
-*- Language-specific Channels:* The bot sends a message to the corresponding language channel, notifying users about a code review request in their language. This helps in organizing and streamlining the code review process.
+**- Language-specific Channels:** The bot sends a message to the corresponding language channel, notifying users about a code review request in their language. This helps in organizing and streamlining the code review process.
 
-*- Reviewer Feedback:* Reviewers can react to the code review request message with a checkmark emoji and provide their feedback in the message thread. This encourages active participation and engagement from the community.
+**- Reviewer Feedback:** Reviewers can react to the code review request message with a checkmark emoji and provide their feedback in the message thread. This encourages active participation and engagement from the community.
 
-*- Review Points and Milestones:* Users earn review points for completing code reviews. When they reach predefined milestones, the bot awards them with medals as a recognition of their contributions to the community.
+**- Review Points and Milestones:** Users earn review points for completing code reviews. When they reach predefined milestones, the bot awards them with medals as a recognition of their contributions to the community.
 
-*- Encouragement and Support:* The bot sends messages of thanks and encouragement to users who complete code reviews, motivating them to continue supporting fellow developers.
+**- Encouragement and Support:** The bot sends messages of thanks and encouragement to users who complete code reviews, motivating them to continue supporting fellow developers.
 
 
 ## Installation
