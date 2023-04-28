@@ -9,7 +9,7 @@ Unitum is a Discord bot designed to foster collaboration and learning among juni
  Users can request code reviews by using the !request command in the designated "code-review" channel. They need to provide the programming language and a link to their GitHub repository.
 
 **- Language-specific Channels:**
- The bot sends a message to the corresponding language channel, notifying users about a code review request in their language. This helps in organizing and streamlining the code review process. (NOTE: please make sure that the langauges listed in the code match the langauge channels in your discrod server.)
+ The bot sends a message to the corresponding language channel, notifying users about a code review request in their language. This helps in organizing and streamlining the code review process. 
 
 **- Reviewer Feedback:**
  Reviewers can react to the code review request message with a checkmark emoji and provide their feedback in the message thread. This encourages active participation and engagement from the community.
@@ -39,6 +39,8 @@ To use the Unitum bot, you can follow these steps to invite it to your Discord s
 
 
 If you encounter any issues or have questions about the installation process, please reach out to the bot's owners.
+
+(NOTE: The list of langauge channels and channel IDs are server specific. If you are adding this to your own server, you must update these things accordingly.)
 
 
 ## Usage
