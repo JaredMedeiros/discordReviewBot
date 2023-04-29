@@ -1,0 +1,5 @@
+# The ID of the server
+SERVER_ID = 1097291717037797450
+
+# The ID of the Code review channel
+CODE_REVIEW_CHANNEL_ID = 1097292075445264504

@@ -1,19 +1,16 @@
 import discord
 from discord.ext import commands
-import requests
 import re
 import traceback
 
+from const import CODE_REVIEW_CHANNEL_ID
+
+from validate import validate_reaction_user
+
 
 intents = discord.Intents().all()
-TOKEN = "MTA5NzI5MjgzMDQyNDE4Mjc4NA.GxLEL1.xsvWj_SmmhzSc7omlIwtaxDVqqpjE3pbnhSszo"
+TOKEN = "MTEwMTY1OTIyODAzMDExNTkyMg.G18Sqx.GfbTVYlSjWWtfYGyll3A-LXuT808H9QbRVBERE"
 client = commands.Bot(command_prefix="!", intents=intents)
-
-# The ID of the server
-SERVER_ID = 1097291717037797450
-
-# The ID of the Code review channel
-CODE_REVIEW_CHANNEL_ID = 1097292075445264504
 
 # Create a list to store server IDs
 joined_servers = []
@@ -96,24 +93,9 @@ REACTION_IDS = []
 @client.event
 async def on_reaction_add(reaction, user):
     try:
-        # Check if the reaction was added to a message in the code review channel
-        if reaction.message.channel.id != CODE_REVIEW_CHANNEL_ID or reaction.message.author.bot:
-            return
+        isValid = validate_reaction_user(reaction, user, REACTION_IDS)
         
-        # Check if the reaction is the "done" emoji
-        if str(reaction.emoji) != "✅":
-            return
-        
-        # Check if the user who added the reaction is not a bot
-        if user.bot:
-            return
-        
-        # Check if the message that was reacted to contains a request message
-        if "!request" not in reaction.message.content.lower():
-            return
-        
-        # Check if the message ID is in the list of IDs that the user has already reacted to
-        if reaction.message.id in REACTION_IDS:
+        if isValid == False:
             return
         
         # Add the message ID to the list of IDs that the user has already reacted to
@@ -126,7 +108,7 @@ async def on_reaction_add(reaction, user):
         # Print the user and their code review count
         print(f"{user} has completed {CODE_REVIEW_COUNTS[user_id]} code reviews")
         
-        #send a thank you message to the user who reacted
+        # send a thank you message to the user who reacted
         channel = client.get_channel(CODE_REVIEW_CHANNEL_ID)
         await channel.send(f"Thanks for completing a code review, {user.mention}! Keep up the great work!")
         
@@ -134,7 +116,8 @@ async def on_reaction_add(reaction, user):
         for milestone_count, milestone_name in MILESTONES:
             if CODE_REVIEW_COUNTS.get(user_id, 0) == milestone_count:
                 await reaction.message.channel.send(f":star_struck: :star_struck: :star_struck: Congratulations, {user.mention}! You've completed {milestone_count} code reviews and earned the {milestone_name} badge. :partying_face: :partying_face: :partying_face: ")
-                
+
+        return True
     except Exception as e:
         print(f"An error occurred in on_reaction_add: {e}")
     
