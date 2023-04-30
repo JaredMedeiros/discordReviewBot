@@ -2,14 +2,20 @@ import discord
 from discord.ext import commands
 import re
 import traceback
+import os
+from dotenv import load_dotenv
 
 from const import CODE_REVIEW_CHANNEL_ID
 
 from validate import validate_reaction_user
 
+# Load environment variables from .env file
+load_dotenv()
+
+# Access the token using the environment variable
+TOKEN = os.getenv("TOKEN")
 
 intents = discord.Intents().all()
-TOKEN = "MTEwMTY1OTIyODAzMDExNTkyMg.G18Sqx.GfbTVYlSjWWtfYGyll3A-LXuT808H9QbRVBERE"
 client = commands.Bot(command_prefix="!", intents=intents)
 
 # Create a list to store server IDs
